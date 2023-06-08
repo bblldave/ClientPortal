@@ -4,8 +4,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -27,11 +25,11 @@ const Copyright = (props) => {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
+
 
 const defaultTheme = createTheme();
 
-const Register = () => {
+const Login = () => {
     const [username, setusername] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +41,7 @@ const Register = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch('http://localhost:3000/users/register', {
+        const response = await fetch('http://localhost:3001/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -79,7 +77,7 @@ const Register = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Log in
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -113,12 +111,12 @@ const Register = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Sign In
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <RouterLink to="/login" variant="body2">
-                  Already have an account? Sign in
+                <RouterLink to="/register" variant="body2">
+                  Don't have an account? Sign up
                 </RouterLink>
               </Grid>
             </Grid>
@@ -130,5 +128,5 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
 
