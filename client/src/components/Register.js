@@ -29,8 +29,6 @@ const Copyright = (props) => {
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
-const defaultTheme = createTheme();
-
 const Register = () => {
     const [username, setusername] = useState('');
     const [password, setPassword] = useState('');
@@ -43,7 +41,7 @@ const Register = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch('http://localhost:3000/users/register', {
+        const response = await fetch('http://localhost:3001/users/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,7 +62,6 @@ const Register = () => {
     };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -126,7 +123,6 @@ const Register = () => {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
   );
 };
 
