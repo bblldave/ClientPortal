@@ -2,10 +2,11 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const userRouter = require('./routes/users');
-require('./db');
+const connectDb = require('./db');
 
 const app = express();
 const port = process.env.PORT || 3001;
+connectDb();
 
 app.use(helmet());
 app.use(cors());
