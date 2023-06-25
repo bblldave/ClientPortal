@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const userRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 const connectDb = require('./db');
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use('/users', userRouter);
+app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
