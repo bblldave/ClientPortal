@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TaskSchema = new Schema({
+const TaskSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -15,11 +15,11 @@ const TaskSchema = new Schema({
         default: 'pending'
     },
     assignedTo: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
     project: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Project',
         required: true
     }

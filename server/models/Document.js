@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const DocumentSchema = new Schema({
+const DocumentSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -15,7 +15,7 @@ const DocumentSchema = new Schema({
         default: 'pending'
     },
     project: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Project',
         required: true
     }

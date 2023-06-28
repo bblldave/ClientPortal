@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 
-const MessageSchema = new Schema({
+const MessageSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true
     },
     sender: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
     recipient: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
@@ -20,7 +20,7 @@ const MessageSchema = new Schema({
         default: Date.now
     },
     project: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
     }
 });

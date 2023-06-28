@@ -6,7 +6,7 @@ const ProjectSchema = new mongoose.Schema({
     required: true
   },
   client: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
   status: {
@@ -15,19 +15,19 @@ const ProjectSchema = new mongoose.Schema({
     default: 'pending'
   },
   tasks: [{
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Task'
   }],
   files: [{
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'File'
   }],
   invoices: [{
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Invoice'
   }],
   contentDocuments: [{
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Document'
   }]
 });
