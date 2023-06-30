@@ -1,78 +1,80 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import { IconButton } from '@mui/material';
+import FolderIcon from '@mui/icons-material/Folder';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
-import Drawer from '@mui/material/Drawer';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
-import Logout from './Logout';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import logo from '../assets/logo-01.png';
 
-const drawerWidth = 240;
 
-const Layout = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDrawer = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const list = () => (
-    <Box 
-      sx={{ width: drawerWidth, paddingTop: 10 }}
-      role="presentation"
-      onClick={toggleDrawer}
-      onKeyDown={toggleDrawer}
-    >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              <MailIcon />
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  )
+const Layout = () => {
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={toggleDrawer}
-          >
-            <MenuIcon />
+    <Box display="flex" height="100vh" width="100vw">
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        width={75}
+        bgcolor="grey.300"
+
+      >
+        <IconButton>
+          <MenuIcon />
+        </IconButton>
+        <Box marginTop="90px" display="flex" flexDirection="column" alignItems="center" width="100%">
+          <IconButton>
+            <NotificationsIcon />
           </IconButton>
-          <Typography variant='h6' sx={{ flexGrow: 1 }}>
-            Dashboard
-          </Typography>
-          <Logout/>
-        </Toolbar>
-      </AppBar>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, width: isOpen ? { sm: `calc(100% - ${drawerWidth}px)` } : `100%`, ml: isOpen ? { sm: `${drawerWidth}px` } : 0 }}>
-        <Toolbar />
-        <Drawer
-          variant="persistent"
-          anchor="left"
-          open={isOpen}
-        >
-          {list()}
-        </Drawer>
-        {children}
+          <Box bgcolor="primary.main" width="100%" display="flex" justifyContent="center">
+            <IconButton>
+              <BusinessCenterIcon />
+            </IconButton>
+          </Box>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end" flexDirection="column">
+          <IconButton>
+            <AccountCircleIcon />
+          </IconButton>
+        </Box>
+      </Box>
+
+      <Box width={200} bgcolor="grey.200">
+        <Box display="flex" justifyContent="center" bgcolor="grey.200">
+          <img src={logo} alt="logo" width="100px" />
+        </Box>
+        <Box display="flex" justifyContent="flex-start" bgcolor="grey.200">
+          <IconButton>
+            <AddIcon />
+            <Typography variant="body2">New</Typography>
+          </IconButton>
+        </Box>
+
+        <Divider />
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <FolderIcon />
+            </ListItemIcon>
+            <ListItemText primary="Item 1" />
+          </ListItem>
+        </List>
+      </Box>
+
+      <Box flexGrow={1} bgcolor="grey.100">
+        {/* Main content goes here */}
       </Box>
     </Box>
+
   )
 }
 
