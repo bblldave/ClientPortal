@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import { IconButton } from '@mui/material';
-import FolderIcon from '@mui/icons-material/Folder';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import AddIcon from '@mui/icons-material/Add';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import logo from '../assets/logo-01.png';
+import ProjectList from './ProjectList';
 
 
 const Layout = () => {
@@ -60,14 +56,7 @@ const Layout = () => {
         </Box>
 
         <Divider />
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <FolderIcon />
-            </ListItemIcon>
-            <ListItemText primary="Item 1" />
-          </ListItem>
-        </List>
+        <ProjectList />
       </Box>
 
       <Box flexGrow={1} bgcolor="grey.100">

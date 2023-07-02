@@ -16,6 +16,22 @@ router.post('/', authenticate, async (req, res) => {
     }
 });
 
+// READ ALL by user
+router.get('/', authenticate, async (req, res) => {
+    try {
+        const projects = await Project.find({
+            $or: [
+                {owner: req.user},
+                {'accessList.user': req.user}
+            ]
+        }).select('title status').sort('-createdAt');
+        res.send(projects);
+    } catch (error) {
+        console.error('Failed to fetch projects', error);
+        res.status(500).send('Internal server error');
+    }
+});
+
 // READ
 router.get('/:id', authenticate, authorize(Project), async (req, res) => {
     try {
