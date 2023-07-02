@@ -5,10 +5,6 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  client: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
   status: {
     type: String,
     enum: ['in progress', 'completed', 'pending'],
@@ -29,6 +25,15 @@ const ProjectSchema = new mongoose.Schema({
   contentDocuments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Document'
+  }],
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    require: true
+  },
+  accessList: [{
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+    permission: { type: String, enum: ['read', 'update'], required: true}
   }]
 });
 

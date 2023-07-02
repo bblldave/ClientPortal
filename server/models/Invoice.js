@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const InvoiceSchema = new mongoose.Schema({
-    client: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
     project: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project',
@@ -23,7 +18,16 @@ const InvoiceSchema = new mongoose.Schema({
         type: String,
         enum: ['paid', 'due', 'overdue'],
         default: 'due'
-    }
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        require: true
+    },
+    accessList: [{
+        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+        permission: { type: String, enum: ['read', 'update'], required: true }
+    }]
 });
 
 module.exports = mongoose.model('Invoice', InvoiceSchema);

@@ -54,4 +54,41 @@ router.delete('/:id', authenticate, async (req, res) => {
     }
 });
 
+// SHARE
+router.post('/:id/share', authenticate, async (req, res) => {
+    const invoiceId = req.params.id;
+    const userToShareWith = req.body.userId;
+    const permission = req.body.permission;
+  
+    try {
+      const user = await User.findById(userToShareWith);
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+  
+      Invoice.findById(invoiceId)
+        .then(invoice => {
+          if (invoice.owner.toString() !== req.user.toString()) {
+            return res.status(403).send('Only the owner can share this invoice');
+          }
+  
+          const alreadyShared = invoice.accessList.find(entry => entry.user.toString() === userToShareWith);
+          if (alreadyShared) {
+            return res.status(400).send('Invoice is already shared with this user');
+          }
+  
+          invoice.accessList.push({ user: userToShareWith, permission });
+          return invoice.save();
+        })
+        .then(() => res.send('Shared Successfully'))
+        .catch(error => {
+          console.log(error);
+          res.status(500).send('Internal server error');
+        });
+  
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Internal server error');
+    }
+  });
 module.exports = router;
