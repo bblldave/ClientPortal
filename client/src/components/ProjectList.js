@@ -3,20 +3,24 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FolderIcon from '@mui/icons-material/Folder';
+import ApiAgent from '../services/ApiAgent';
 
 const ProjectList = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     const fetchProjects = async () => {
+      try {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:3001/projects/', {
-            headers: {
-                'x-auth-token': token,
-            }
-        });
-        const data = await res.json();
-        setProjects(data);
+        const response = await ApiAgent.Projects.getProjects(token);
+        if (response.status === 200) {
+          const responseData = response.data;
+          setProjects(responseData);
+        }
+      } catch (error) {
+        setProjects([]);
+        throw error;
+      }
     };
 
     fetchProjects();

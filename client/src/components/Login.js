@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ApiAgent from '../services/ApiAgent';
 
 const Copyright = (props) => {
   return (
@@ -30,36 +31,24 @@ const Copyright = (props) => {
 const Login = () => {
   const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError(null);
 
-    const response = await fetch('http://localhost:3001/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ username, password })
-    });
-
-    const data = await response.json();
-
-    setIsLoading(false);
-    if (!response.ok) {
-      setError(data.message);
-      return;
+    try {
+      const response = await ApiAgent.Users.logIn({ username, password });
+      if (response.status === 200) {
+        const responseData = response.data;
+        localStorage.setItem('token', responseData.token);
+        navigate('/dashboard');
+      } else {
+        const errorData = response.data;
+        throw new Error(errorData.message);
+      }
+    } catch (error) {
+      throw error;
     }
-
-    localStorage.setItem('token', data.token);
-    setSuccess(true);
-    navigate('/dashboard');
-    
   };
 
   return (
