@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useStores } from '../StoreContext';
+import { observer } from 'mobx-react-lite';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -10,7 +12,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ApiAgent from '../services/ApiAgent';
 
 const Copyright = (props) => {
@@ -28,7 +29,8 @@ const Copyright = (props) => {
 
 
 
-const Login = () => {
+const Login = observer(() => {
+  const { userStore } = useStores();
   const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -41,6 +43,7 @@ const Login = () => {
       if (response.status === 200) {
         const responseData = response.data;
         localStorage.setItem('token', responseData.token);
+        userStore.setUser(responseData.user);
         navigate('/dashboard');
       } else {
         const errorData = response.data;
@@ -114,7 +117,7 @@ const Login = () => {
       <Copyright sx={{ mt: 5 }} />
     </Container>
   );
-};
+});
 
 export default Login;
 

@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useStores } from '../StoreContext';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FolderIcon from '@mui/icons-material/Folder';
 import ApiAgent from '../services/ApiAgent';
 
-const ProjectList = () => {
-  const [projects, setProjects] = useState([]);
+const ProjectList = observer(() => {
+  const { projectStore } = useStores();
+  const projects = projectStore.projects;
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await ApiAgent.Projects.getProjects(token);
-        if (response.status === 200) {
-          const responseData = response.data;
-          setProjects(responseData);
-        }
-      } catch (error) {
-        setProjects([]);
-        throw error;
-      }
-    };
-
-    fetchProjects();
+    projectStore.fetchProjects();
   }, []);
 
   const handleProjectClick = (id) => {
@@ -42,6 +31,6 @@ const ProjectList = () => {
       ))}
     </div>
   );
-};
+});
 
 export default ProjectList;
